@@ -1,3 +1,3 @@
-from edge import Edge
-from node import Node
-from network import Network
+from .edge import *
+from .node import *
+from .network import *

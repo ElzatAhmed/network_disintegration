@@ -1,15 +1,15 @@
 class Node:
 
-    def __init__(self, nid: int, position=None, **kwargs):
+    def __init__(self, nid: int, pos=None, **kwargs):
 
         """
         :param nid: each node must have a unique integer identifier
-        :param position: tuple of two numeric values or none
+        :param pos: tuple of two numeric values or none
         :param kwargs: node attributes can be anything, stores as a dictionary
         """
 
         self.nid = nid
-        self.position = position
+        self.pos = pos
         self.alive = True
         self.__attr__ = dict(**kwargs)
 

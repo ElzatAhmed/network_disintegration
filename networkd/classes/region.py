@@ -24,7 +24,8 @@ class Region:
         :param p: a two dimensional point
         :return: True if p is contained in the region, False otherwise
         """
-
+        if p is None:
+            return False
         return Region.distance(p, self.center) <= self.radius
 
     @classmethod
@@ -51,12 +52,13 @@ class Region:
         :return: next possible center point
         """
 
-        next_center = (center[0], center[1])
-        if next_center[0] + dr <= 1:
-            next_center[0] += dr
-        elif next_center[1] + dr <= 1:
-            next_center[1] += dr
-            next_center = (0, next_center[1])
+        x = center[0]
+        y = center[1]
+        if x + dr <= 1:
+            x += dr
+        elif y + dr <= 1:
+            y += dr
+            x = 0
         else:
             return None
-        return next_center
+        return x, y

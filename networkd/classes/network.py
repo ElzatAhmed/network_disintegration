@@ -33,7 +33,7 @@ class Network:
                 return True
         return False
 
-    def add_node(self, node: nd.Node):  # add a single node to the network
+    def add_node(self, node):  # add a single node to the network
         if self._contains_node_(node):
             # network cannot have two identical nodes
             print(f'network contains a same node with node identifier: {node.nid}')
@@ -44,7 +44,7 @@ class Network:
         for node in nodes:
             self.add_node(node)
 
-    def add_edge(self, edge: nd.Edge):  # add a single edge to the network
+    def add_edge(self, edge):  # add a single edge to the network
         if self._contains_edge_(edge):
             # network cannot have two identical edges
             print('network contains a same edge')
@@ -151,7 +151,7 @@ class Network:
         matrix size would be max_id + 1
         traverse all the living edges
         and set the corresponding matrix element to 1
-        :return:
+        :return: size
         """
 
         max_id = self.get_node_ids()[-1]
@@ -162,6 +162,7 @@ class Network:
                 continue
             self.adj_matrix[edge.nid0][edge.nid1] = 1
             self.adj_matrix[edge.nid1][edge.nid0] = 1
+        return size
 
     def construct_con_matrix(self):
 
@@ -170,17 +171,18 @@ class Network:
         connection matrix: c[i][j] = 1 iff there is at least one path from i to j, otherwise c[i][j] = 0
         construct the current networkx graph
         implement the all_pairs_shortest_path algorithm of networkx
-        :return:
+        :return: size
         """
 
         max_id = self.get_node_ids()[-1]
         size = max_id + 1
-        self.con_matrix = np.zeros((size, size), dtype=1)
+        self.con_matrix = np.zeros((size, size), dtype=int)
         self.construct_nx_graph_living()
-        paths = nx.all_pairs_shortest_path(self.graph)
+        paths = dict(nx.all_pairs_shortest_path(self.graph))
         for i in paths:
             for j in paths[i]:
                 self.con_matrix[i][j] = 1
+        return size
 
     def get_adjacency_nodes(self, nid: int):
 
@@ -192,8 +194,8 @@ class Network:
         """
 
         adj_nodes = []
-        self.construct_adj_matrix()
-        for i in range(0, len(self.adj_matrix)):
+        size = self.construct_adj_matrix()
+        for i in range(0, size):
             if i == nid:
                 continue
             if self.adj_matrix[i][nid] == 1:
@@ -210,8 +212,8 @@ class Network:
         """
 
         con_nodes = []
-        self.construct_con_matrix()
-        for i in range(0, len(self.con_matrix)):
+        size = self.construct_con_matrix()
+        for i in range(0, size):
             if i == nid:
                 continue
             if self.con_matrix[i][nid] == 1:
