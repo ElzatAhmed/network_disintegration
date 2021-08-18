@@ -76,5 +76,5 @@ def dis_region(network, cost: int, radius=0.05, dr=0.1, center=(0, 0)):
             network.kill_node(nid)
             killed.append(nid)
         cost -= 1
-    return centers
+    return centers, killed
 
