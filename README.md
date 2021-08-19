@@ -1,2 +1,2 @@
 # network_disintegration
-traditional network disintegration methods
+visualized traditional network disintegration methods
