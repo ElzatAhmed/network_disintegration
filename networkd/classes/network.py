@@ -21,13 +21,43 @@ class Network:
         self.adj_matrix = None
         self.con_matrix = None
 
-    def _contains_node_(self, node):
+    def import_from_nxgraph(self, graph: nx.Graph):
+
+        """
+        u can provide a networkx graph
+        this method will simulate the graph
+        and generate a new networkd graph
+        :param graph: networkx graph
+        :return:
+        """
+
+        from networkd.classes.node import Node
+        from networkd.classes.edge import Edge
+
+        nodes = []
+        edges = []
+        i = 0
+        node_attr = graph.nodes.data()
+        edge_attr = graph.edges.data()
+        for node in graph.nodes:
+            n = Node(i, pos=None)
+            n.__attr__ = node_attr[node]
+            nodes.append(n)
+        for edge in graph.edges:
+            e = Edge(edge[0], edge[1])
+            e.__attr__ = edge_attr[edge]
+            edges.append(e)
+        self.add_nodes_from(nodes)
+        self.add_edges_from(edges)
+        self.graph = graph
+
+    def _contains_node_(self, node):    # look for an identical node
         for n in self.nodes:
             if n.__eq__(node):
                 return True
         return False
 
-    def _contains_edge_(self, edge):
+    def _contains_edge_(self, edge):    # look for an identical edge
         for e in self.edges:
             if e.__eq__(edge):
                 return True
