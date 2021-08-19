@@ -11,13 +11,13 @@ class Node:
         self.nid = nid
         self.pos = pos
         self.alive = True
-        self.__attr__ = dict(**kwargs)
+        self._attr_ = dict(**kwargs)
 
     def __eq__(self, other):
         return self.nid == other.nid
 
     def __getattr__(self, name):
-        return self.__attr__.get(name)
+        return self._attr_.get(name)
 
     def __str__(self):
         return f'node[identifier: {self.nid}]'

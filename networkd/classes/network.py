@@ -37,15 +37,14 @@ class Network:
         nodes = []
         edges = []
         i = 0
-        node_attr = graph.nodes.data()
-        edge_attr = graph.edges.data()
         for node in graph.nodes:
             n = Node(i, pos=None)
-            n.__attr__ = node_attr[node]
+            n._attr_ = graph.nodes[node]
             nodes.append(n)
+            i += 1
         for edge in graph.edges:
             e = Edge(edge[0], edge[1])
-            e.__attr__ = edge_attr[edge]
+            e._attr_ = graph.edges[edge]
             edges.append(e)
         self.add_nodes_from(nodes)
         self.add_edges_from(edges)

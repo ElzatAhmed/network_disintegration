@@ -53,12 +53,12 @@ def clone_network(network):
     temp_edges = []
     for node in network.nodes:
         temp_node = Node(node.nid, node.pos)
-        temp_node.__attr__ = node.__attr__
+        temp_node._attr_ = node._attr_
         temp_node.alive = node.alive
         temp_nodes.append(temp_node)
     for edge in network.edges:
         temp_edge = Edge(edge.nid0, edge.nid1)
-        temp_edge.__attr__ = edge.__attr__
+        temp_edge._attr_ = edge._attr_
         temp_edge.alive = edge.alive
         temp_edges.append(temp_edge)
     clone = Network()

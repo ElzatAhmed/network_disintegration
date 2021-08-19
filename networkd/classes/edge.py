@@ -11,7 +11,7 @@ class Edge:
         self.nid0 = nid0
         self.nid1 = nid1
         self.alive = True
-        self.__attr__ = dict(kwargs)
+        self._attr_ = dict(kwargs)
 
     def __contains__(self, nid):
         return nid == self.nid0 or \
