@@ -1,21 +1,22 @@
 import random
 
 import matplotlib
+from networkd.visualization.func import *
 
 
 def visualize_all_nx(
-        network, pos=None, color_alive_nodes=(0, 1, 0), color_dead_nodes=(1, 0, 0),
-        color_alive_edges=(0, 0, 1), color_dead_edges=(0, 0, 0), save_path=None
+        network, pos=None, alive_node_color=(0, 1, 0), dead_node_color=(1, 0, 0),
+        alive_edge_color=(0, 0, 1), dead_edge_color=(0, 0, 0), save_path=None
 ):
     """
     visualize the whole network using networkx as tool
     including the alive and dead nodes and edges
     :param network: Network
     :param pos: a dictionary of node ids with position tuples as values
-    :param color_alive_nodes: color for painting the alive nodes, default=green
-    :param color_dead_nodes: color for painting the dead nodes, default=red
-    :param color_alive_edges: color for painting the alive edges, default=blue
-    :param color_dead_edges: color for painting the dead edges, default=black
+    :param alive_node_color: color for painting the alive nodes, default=green
+    :param dead_node_color: color for painting the dead nodes, default=red
+    :param alive_edge_color: color for painting the alive edges, default=blue
+    :param dead_edge_color: color for painting the dead edges, default=black
     :param save_path: a file path for output file, default=None
     :return:
     """
@@ -28,14 +29,14 @@ def visualize_all_nx(
     edge_color = []
     for node in network.nodes:
         if node.alive:
-            node_color.append(color_alive_nodes)
+            node_color.append(alive_node_color)
         else:
-            node_color.append(color_dead_nodes)
+            node_color.append(dead_node_color)
     for edge in network.edges:
         if edge.alive:
-            edge_color.append(color_alive_edges)
+            edge_color.append(alive_edge_color)
         else:
-            edge_color.append(color_dead_edges)
+            edge_color.append(dead_edge_color)
     if pos is None:
         pos = construct_pos_dict(network.nodes)
         if pos is None:
@@ -83,36 +84,3 @@ def visualize_cur_nx(
     else:
         matplotlib.use("Agg")
         f.savefig(save_path)
-
-
-def generate_random_pos(nid_list):
-
-    """
-    generate random normalized position tuples
-    :param nid_list: node id list
-    :return: a dictionary with node ids and position tuples as values
-    """
-
-    pos = {}
-    for nid in nid_list:
-        x = random.random()
-        y = random.random()
-        pos[nid] = (x, y)
-    return pos
-
-
-def construct_pos_dict(nodes):
-
-    """
-    construct position dictionary from node attribute pos
-    if only one of them is None, return None for whole
-    :param nodes: node list
-    :return: a dictionary with node ids and position tuples as values or None
-    """
-
-    pos = {}
-    for node in nodes:
-        if node.pos is None:
-            return None
-        pos[node.nid] = node.pos
-    return pos

@@ -1,0 +1,120 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 1000;
+            height: 700px;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+        #config {
+            float: left;
+            width: 400px;
+            height: 600px;
+        }
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<div id = "config"></div>
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"color": "red", "id": 0, "label": "Mr. Hi", "shape": "dot", "x": 0.08405080801150877, "y": 0.9842762401964528}, {"color": "red", "id": 1, "label": "Mr. Hi", "shape": "dot", "x": 0.8337666807928236, "y": 0.6726859047690364}, {"color": "blue", "id": 2, "label": "Mr. Hi", "shape": "dot", "x": 0.27280651860395067, "y": 0.8097458746177137}, {"color": "blue", "id": 3, "label": "Mr. Hi", "shape": "dot", "x": 0.21683295776036682, "y": 0.282243838511511}, {"color": "blue", "id": 4, "label": "Mr. Hi", "shape": "dot", "x": 0.2875778799365166, "y": 0.6577829300902504}, {"color": "blue", "id": 5, "label": "Mr. Hi", "shape": "dot", "x": 0.8962441127253973, "y": 0.9629972429391475}, {"color": "blue", "id": 6, "label": "Mr. Hi", "shape": "dot", "x": 0.16987276319497446, "y": 0.5265218154025242}, {"color": "blue", "id": 7, "label": "Mr. Hi", "shape": "dot", "x": 0.12937200561624373, "y": 0.47833373504295884}, {"color": "blue", "id": 8, "label": "Mr. Hi", "shape": "dot", "x": 0.41399362459841815, "y": 0.6206972804474863}, {"color": "blue", "id": 9, "label": "Officer", "shape": "dot", "x": 0.11211594212260434, "y": 0.4392959160176081}, {"color": "blue", "id": 10, "label": "Mr. Hi", "shape": "dot", "x": 0.05477981573948931, "y": 0.4878123684471266}, {"color": "blue", "id": 11, "label": "Mr. Hi", "shape": "dot", "x": 0.6343208422567812, "y": 0.8331894271024537}, {"color": "blue", "id": 12, "label": "Mr. Hi", "shape": "dot", "x": 0.1992266468272169, "y": 0.944863200658621}, {"color": "blue", "id": 13, "label": "Mr. Hi", "shape": "dot", "x": 0.5747395280797146, "y": 0.6973108234840877}, {"color": "blue", "id": 14, "label": "Officer", "shape": "dot", "x": 0.2612094001905454, "y": 0.3436739329706685}, {"color": "blue", "id": 15, "label": "Officer", "shape": "dot", "x": 0.9083610111680905, "y": 0.28610403080498026}, {"color": "blue", "id": 16, "label": "Mr. Hi", "shape": "dot", "x": 0.6431917243206385, "y": 0.9598863285419944}, {"color": "blue", "id": 17, "label": "Mr. Hi", "shape": "dot", "x": 0.6537509333367623, "y": 0.732881657073301}, {"color": "blue", "id": 18, "label": "Officer", "shape": "dot", "x": 0.7419753377337112, "y": 0.7595576050202186}, {"color": "blue", "id": 19, "label": "Mr. Hi", "shape": "dot", "x": 0.7850784242198325, "y": 0.9065517763256662}, {"color": "blue", "id": 20, "label": "Officer", "shape": "dot", "x": 0.8986775364321136, "y": 0.5905634418625866}, {"color": "blue", "id": 21, "label": "Mr. Hi", "shape": "dot", "x": 0.9475344623384088, "y": 0.5102909604617587}, {"color": "blue", "id": 22, "label": "Officer", "shape": "dot", "x": 0.8911534045437882, "y": 0.38256446960853985}, {"color": "blue", "id": 23, "label": "Officer", "shape": "dot", "x": 0.0423134238368591, "y": 0.37464032606344144}, {"color": "blue", "id": 24, "label": "Officer", "shape": "dot", "x": 0.0897145149880233, "y": 0.7458460278011957}, {"color": "blue", "id": 25, "label": "Officer", "shape": "dot", "x": 0.05918091523366553, "y": 0.10406189661958376}, {"color": "blue", "id": 26, "label": "Officer", "shape": "dot", "x": 0.8763023284563082, "y": 0.23341945096085204}, {"color": "blue", "id": 27, "label": "Officer", "shape": "dot", "x": 0.3860825389518526, "y": 0.8684418990393029}, {"color": "blue", "id": 28, "label": "Officer", "shape": "dot", "x": 0.2547767875261432, "y": 0.8853162332392283}, {"color": "blue", "id": 29, "label": "Officer", "shape": "dot", "x": 0.2425103171478552, "y": 0.19140401050892908}, {"color": "blue", "id": 30, "label": "Officer", "shape": "dot", "x": 0.8536948520880464, "y": 0.30980291841307994}, {"color": "blue", "id": 31, "label": "Officer", "shape": "dot", "x": 0.2777854354491105, "y": 0.12327559556093692}, {"color": "blue", "id": 32, "label": "Officer", "shape": "dot", "x": 0.25168989410792886, "y": 0.6336238756926355}, {"color": "blue", "id": 33, "label": "Officer", "shape": "dot", "x": 0.4393121892498276, "y": 0.20389370027830234}]);
+        edges = new vis.DataSet([{"from": 0, "to": 1}, {"from": 0, "to": 2}, {"from": 0, "to": 3}, {"from": 0, "to": 4}, {"from": 0, "to": 5}, {"from": 0, "to": 6}, {"from": 0, "to": 7}, {"from": 0, "to": 8}, {"from": 0, "to": 10}, {"from": 0, "to": 11}, {"from": 0, "to": 12}, {"from": 0, "to": 13}, {"from": 0, "to": 17}, {"from": 0, "to": 19}, {"from": 0, "to": 21}, {"from": 0, "to": 31}, {"from": 1, "to": 2}, {"from": 1, "to": 3}, {"from": 1, "to": 7}, {"from": 1, "to": 13}, {"from": 1, "to": 17}, {"from": 1, "to": 19}, {"from": 1, "to": 21}, {"from": 1, "to": 30}, {"from": 2, "to": 3}, {"from": 2, "to": 7}, {"from": 2, "to": 8}, {"from": 2, "to": 9}, {"from": 2, "to": 13}, {"from": 2, "to": 27}, {"from": 2, "to": 28}, {"from": 2, "to": 32}, {"from": 3, "to": 7}, {"from": 3, "to": 12}, {"from": 3, "to": 13}, {"from": 4, "to": 6}, {"from": 4, "to": 10}, {"from": 5, "to": 6}, {"from": 5, "to": 10}, {"from": 5, "to": 16}, {"from": 6, "to": 16}, {"from": 8, "to": 30}, {"from": 8, "to": 32}, {"from": 8, "to": 33}, {"from": 9, "to": 33}, {"from": 13, "to": 33}, {"from": 14, "to": 32}, {"from": 14, "to": 33}, {"from": 15, "to": 32}, {"from": 15, "to": 33}, {"from": 18, "to": 32}, {"from": 18, "to": 33}, {"from": 19, "to": 33}, {"from": 20, "to": 32}, {"from": 20, "to": 33}, {"from": 22, "to": 32}, {"from": 22, "to": 33}, {"from": 23, "to": 25}, {"from": 23, "to": 27}, {"from": 23, "to": 29}, {"from": 23, "to": 32}, {"from": 23, "to": 33}, {"from": 24, "to": 25}, {"from": 24, "to": 27}, {"from": 24, "to": 31}, {"from": 25, "to": 31}, {"from": 26, "to": 29}, {"from": 26, "to": 33}, {"from": 27, "to": 33}, {"from": 28, "to": 31}, {"from": 28, "to": 33}, {"from": 29, "to": 32}, {"from": 29, "to": 33}, {"from": 30, "to": 32}, {"from": 30, "to": 33}, {"from": 31, "to": 32}, {"from": 31, "to": 33}, {"from": 32, "to": 33}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": true
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+        // if this network requires displaying the configure window,
+        // put it in its div
+        options.configure["container"] = document.getElementById("config");
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

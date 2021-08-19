@@ -7,3 +7,7 @@
 *.iml
 test.py
 main.py
+*.html
+*.xhtml
+*.css
+*.js
