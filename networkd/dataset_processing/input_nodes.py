@@ -46,9 +46,9 @@ def _construct_nodes(node_details: list, attr_names: list):
             if nid is None and _is_identifier(name):
                 nid = int(details[i])
             elif x is None and name == 'x':
-                x = int(details[i])
+                x = float(details[i])
             elif y is None and name == 'y':
-                y = int(details[i])
+                y = float(details[i])
             else:
                 attr[name] = details[i]
             i += 1
