@@ -50,13 +50,13 @@ class Network:
         self.add_edges_from(edges)
         self.graph = graph
 
-    def _contains_node_(self, node):    # look for an identical node
+    def _contains_node_(self, node):  # look for an identical node
         for n in self.nodes:
             if n.__eq__(node):
                 return True
         return False
 
-    def _contains_edge_(self, edge):    # look for an identical edge
+    def _contains_edge_(self, edge):  # look for an identical edge
         for e in self.edges:
             if e.__eq__(edge):
                 return True
@@ -97,6 +97,20 @@ class Network:
                 return edge
         return None
 
+    def get_living_nodes(self):  # get a list containing only the living nodes
+        living_nodes = []
+        for node in self.nodes:
+            if node.alive:
+                living_nodes.append(node)
+        return living_nodes
+
+    def get_living_edges(self):  # get a list containing only the living edges
+        living_edges = []
+        for edge in self.edges:
+            if edge.alive:
+                living_edges.append(edge)
+        return living_edges
+
     def get_node_ids(self):  # get a list containing ascending identifiers of all the nodes
         nids = []
         for node in self.nodes:
@@ -119,7 +133,7 @@ class Network:
             edge_tuples.append((edge.nid0, edge.nid1))
         return edge_tuples
 
-    def get_living_edge_tuples(self):   # get a list containing (id0, id1) like info tuples of all the living edges
+    def get_living_edge_tuples(self):  # get a list containing (id0, id1) like info tuples of all the living edges
         edge_tuples = []
         for edge in self.edges:
             if not edge.alive:
