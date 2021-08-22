@@ -25,6 +25,20 @@ def input_nodes_txt(node_src: str, attr_names: list, attr_delimiter=None):
     return _construct_nodes(node_details, attr_names)
 
 
+def input_nodes_csv(node_src: str, attr_names: list):
+
+    """
+
+    :param node_src:
+    :param attr_names:
+    :return:
+    """
+
+    import pandas as pd
+
+    df = pd.read_csv(node_src, usecols=attr_names)
+
+
 def _construct_nodes(node_details: list, attr_names: list):
     """
     construct nodes from the node details

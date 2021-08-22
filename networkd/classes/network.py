@@ -262,3 +262,19 @@ class Network:
             if self.con_matrix[i][nid] == 1:
                 con_nodes.append(i)
         return con_nodes
+
+    def node_bin_result(self):
+
+        """
+        :return: a binary result of the nodes
+                    bi = 1 if node i is alive
+                    bi = 0 if node i is dead
+        """
+
+        binary = []
+        for node in self.nodes:
+            if node.alive:
+                binary.append(1)
+            else:
+                binary.append(0)
+        return binary

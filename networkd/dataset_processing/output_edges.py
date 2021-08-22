@@ -9,7 +9,7 @@ def output_edges_txt(edges: list, output_path='edges.txt'):
 
     edge_details = _construct_details(edges)
     out_file = open(output_path, mode='w', encoding='utf-8')
-    for details in  edge_details:
+    for details in edge_details:
         out_file.write(details + '\n')
     out_file.close()
 
